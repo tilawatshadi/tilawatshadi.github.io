@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>تلاوات شادي</title>
+<meta name="description" content="نسعى في إثراء المحتوى القرآني عن طريق نشر التلاوات والفوائد">
+<meta name="theme-color" content="#f5f0e6">
+
+<!-- معاينة الرابط في واتساب وإكس وتيليجرام -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="تلاوات شادي">
+<meta property="og:description" content="نسعى في إثراء المحتوى القرآني عن طريق نشر التلاوات والفوائد">
+<meta property="og:url" content="https://tilawatshadi.github.io/">
+<meta property="og:image" content="https://tilawatshadi.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/camel-bold.woff2" as="font" type="font/woff2" crossorigin>
+<!-- خط الآية: يُحمَّل بحروف الآية فقط حتى يبقى صغيرًا. إذا غيّرت الآية غيّر قيمة text هنا -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap&text=%20%D8%A1%D8%A3%D8%A5%D8%A7%D8%A8%D8%AA%D8%AF%D8%B0%D8%B1%D8%B2%D9%83%D9%84%D9%85%D9%86%D9%87%D9%88%D9%8A%D9%8C%D9%8E%D9%8F%D9%90%D9%91%D9%92%D9%93%D9%B0%D9%B1%DB%9F%DB%A6%DB%AD%EF%B4%BE%EF%B4%BF">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <radialGradient id="fade" cx="0" cy="0" r="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#000"/></radialGradient>
+    <mask id="corner-mask"><rect width="520" height="520" fill="url(#fade)"/></mask>
+    <pattern id="dots" width="52" height="52" patternUnits="userSpaceOnUse">
+      <rect x="18" y="18" width="16" height="16" fill="#2c7a55" transform="rotate(45 26 26)"/>
+    </pattern>
+    <g id="corner"><rect width="520" height="520" fill="url(#dots)" mask="url(#corner-mask)"/></g>
+  </defs>
+</svg>
+<svg class="corner tl" viewBox="0 0 520 520" aria-hidden="true"><use href="#corner"/></svg>
+<svg class="corner br" viewBox="0 0 520 520" aria-hidden="true"><use href="#corner"/></svg>
+
+<main class="page">
+  <header class="head">
+    <svg class="mark" viewBox="0 0 146 152" role="img" aria-label="شعار شادي">
+      <g transform="translate(-27 -19)" fill="currentColor" stroke="currentColor">
+        <g stroke-width="6" stroke-linejoin="round">
+          <path class="page-r" d="M96 168 C74 156 50 148 30 146 L30 92 C50 94 74 102 96 116 Z"/>
+          <path class="page-l" d="M104 168 C126 156 150 148 170 146 L170 92 C150 94 126 102 104 116 Z"/>
+        </g>
+        <g stroke="none">
+          <g class="dot dot-1"><rect x="-12" y="-12" width="24" height="24" rx="3.5" transform="translate(100 36) rotate(45)"/></g>
+          <g class="dot dot-2"><rect x="-12" y="-12" width="24" height="24" rx="3.5" transform="translate(122 58) rotate(45)"/></g>
+          <g class="dot dot-3"><rect x="-12" y="-12" width="24" height="24" rx="3.5" transform="translate(78 58) rotate(45)"/></g>
+        </g>
+      </g>
+    </svg>
+    <h1 class="name">تلاوات شادي</h1>
+    <p class="bio">نسعى في إثراء المحتوى القرآني عن طريق نشر التلاوات والفوائد</p>
+  </header>
+
+  <ul class="links" id="links"></ul>
+
+  <figure class="ayah">
+    <p>﴿كِتَٰبٌ أَنزَلْنَٰهُ إِلَيْكَ مُبَٰرَكٌۭ لِّيَدَّبَّرُوٓا۟ ءَايَٰتِهِۦ وَلِيَتَذَكَّرَ أُو۟لُوا۟ ٱلْأَلْبَٰبِ﴾</p>
+    <cite>[ص: ٢٩]</cite>
+  </figure>
+</main>
+
+<script src="links.js"></script>
+<script>
+  const list = document.getElementById("links");
+  SHADI_LINKS.forEach((link, i) => {
+    const li = document.createElement("li");
+    li.style.setProperty("--i", i);
+    const a = document.createElement("a");
+    a.className = "link";
+    a.href = link.url;
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.dataset.goatcounterClick = link.id;
+    a.dataset.goatcounterTitle = link.label;
+    a.innerHTML = `
+      <span class="icon" style="--src:url('assets/icons/${link.icon}.svg')" aria-hidden="true"></span>
+      <span class="text"><span class="label"></span><span class="handle"></span></span>
+      <span class="arrow" aria-hidden="true">«</span>`;
+    a.querySelector(".label").textContent = link.label;
+    a.querySelector(".handle").textContent = link.handle;
+    li.append(a);
+    list.append(li);
+  });
+</script>
+<!-- GoatCounter: يعدّ الزيارات والضغطات. غيّر tilawatshadi إذا سجّلت باسم آخر -->
+<script data-goatcounter="https://tilawatshadi.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

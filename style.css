@@ -1,0 +1,204 @@
+/* عمود واحد ضيق في المنتصف مثل صفحة من كتاب: الشعار، ثم الروابط صفوفًا بخطوط فاصلة، ثم الآية */
+:root {
+  --paper: #f5f0e6;
+  --green-800: #17301f;
+  --green-600: #21553a;
+  --green-500: #2c7a55;
+  --tint: #dfe8dc;
+  --cream: #f4eee1;
+
+  --font-display: "The Year of The Camel", "Amiri", serif;
+  --font-text: "IBM Plex Sans Arabic", "Tajawal", system-ui, sans-serif;
+  --font-quran: "KFGQPC Uthmanic Script HAFS", "Amiri Quran", serif;
+
+  --ease: cubic-bezier(.22, .8, .24, 1);
+  color-scheme: light;
+}
+
+@font-face { font-family: "The Year of The Camel"; font-weight: 700; font-display: swap; src: url("assets/fonts/camel-bold.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 400; font-display: swap; src: url("assets/fonts/plex-regular.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 500; font-display: swap; src: url("assets/fonts/plex-medium.woff2") format("woff2"); }
+@font-face { font-family: "IBM Plex Sans Arabic"; font-weight: 600; font-display: swap; src: url("assets/fonts/plex-semibold.woff2") format("woff2"); }
+
+* { box-sizing: border-box; }
+html { background: var(--paper); }
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--paper);
+  color: var(--green-600);
+  font-family: var(--font-text);
+  line-height: 1.6;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* نقاط الشين الباهتة في زاويتين، كما في الكاروسيل */
+.corner {
+  position: fixed;
+  width: min(48vw, 300px);
+  height: auto;
+  opacity: .16;
+  pointer-events: none;
+  z-index: 0;
+}
+.corner.tl { top: 0; left: 0; }
+.corner.br { bottom: 0; right: 0; transform: rotate(180deg); }
+
+.page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  padding-inline: 20px;
+  padding-block: clamp(48px, 10vh, 88px) 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ---------- الرأس ---------- */
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+}
+.mark {
+  width: 92px;
+  height: auto;
+  color: var(--green-800);
+  overflow: visible;
+  margin-bottom: 6px;
+}
+.name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.6rem;
+  line-height: 1.2;
+  color: var(--green-800);
+}
+.bio {
+  margin: 0;
+  max-width: 30ch;
+  font-size: 1.02rem;
+  line-height: 1.8;
+  color: var(--green-600);
+  text-wrap: balance;
+}
+
+/* ---------- الروابط ---------- */
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--tint);
+}
+.links li { border-top: 1px solid var(--tint); }
+
+.link {
+  position: relative;
+  display: grid;
+  grid-template-columns: 26px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 17px 14px;
+  color: var(--green-800);
+  text-decoration: none;
+  isolation: isolate;
+  transition: transform .18s var(--ease);
+}
+/* تظليل يمتد من اليمين عند المرور، بنفس لون شريط التظليل في الهوية */
+.link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--tint);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .45s var(--ease);
+}
+.link:hover::before,
+.link:focus-visible::before { transform: scaleX(1); }
+.link:active { transform: scale(.985); }
+.link:focus-visible { outline: 2px solid var(--green-500); outline-offset: 2px; }
+
+.icon {
+  width: 24px;
+  height: 24px;
+  background: var(--green-500);
+  -webkit-mask: var(--src) center / contain no-repeat;
+          mask: var(--src) center / contain no-repeat;
+  transition: background-color .3s, transform .45s var(--ease);
+}
+.link:hover .icon, .link:focus-visible .icon { background: var(--green-800); transform: scale(1.08); }
+
+.text { display: flex; flex-direction: column; min-width: 0; }
+.label { font-weight: 600; font-size: 1.1rem; line-height: 1.4; }
+.handle {
+  font-weight: 500;
+  font-size: .86rem;
+  line-height: 1.4;
+  color: var(--green-500);
+  direction: ltr;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.arrow {
+  font-family: var(--font-text);
+  font-size: 1.3rem;
+  color: var(--green-500);
+  transition: transform .45s var(--ease);
+}
+.link:hover .arrow, .link:focus-visible .arrow { transform: translateX(-6px); }
+
+/* ---------- الآية ---------- */
+.ayah {
+  margin: 8px 0 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.ayah p {
+  margin: 0;
+  font-family: var(--font-quran);
+  font-size: 1.55rem;
+  line-height: 2.1;
+  color: var(--green-800);
+  text-wrap: balance;
+}
+.ayah cite {
+  font-style: normal;
+  font-weight: 500;
+  font-size: .85rem;
+  color: var(--green-500);
+}
+
+/* ---------- الحركة عند الفتح ---------- */
+@keyframes rise   { from { opacity: 0; transform: translateY(14px); } }
+@keyframes open   { from { opacity: 0; transform: scaleY(.2); } }
+@keyframes drop   { 0% { opacity: 0; transform: translateY(-34px); } 70% { opacity: 1; transform: translateY(3px); } 100% { transform: none; } }
+
+.mark .page-r, .mark .page-l { transform-box: fill-box; transform-origin: 50% 100%; animation: open .7s var(--ease) both; }
+.mark .page-l { animation-delay: .08s; }
+.mark .dot { transform-box: fill-box; transform-origin: center; animation: drop .55s var(--ease) both; }
+.mark .dot-1 { animation-delay: .55s; }
+.mark .dot-2 { animation-delay: .7s; }
+.mark .dot-3 { animation-delay: .85s; }
+
+.name  { animation: rise .7s var(--ease) 1s both; }
+.bio   { animation: rise .7s var(--ease) 1.12s both; }
+.links li { animation: rise .6s var(--ease) both; animation-delay: calc(1.25s + var(--i) * 70ms); }
+.ayah  { animation: rise .8s var(--ease) 1.8s both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
