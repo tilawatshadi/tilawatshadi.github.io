@@ -12,7 +12,7 @@
   --font-quran: "KFGQPC Uthmanic Script HAFS", "Amiri Quran", serif;
 
   --ease: cubic-bezier(.22, .8, .24, 1);
-  color-scheme: light;
+  color-scheme: only light;
 }
 
 @font-face { font-family: "The Year of The Camel"; font-weight: 700; font-display: swap; src: url("assets/fonts/camel-bold.woff2") format("woff2"); }
@@ -189,7 +189,8 @@ body {
 
 .mark .page-r, .mark .page-l { transform-box: fill-box; transform-origin: 50% 100%; animation: open .7s var(--ease) both; }
 .mark .page-l { animation-delay: .08s; }
-.mark .dot { transform-box: fill-box; transform-origin: center; animation: drop .55s var(--ease) both; }
+/* النقاط تتحرك بالإزاحة فقط بدون transform-box، لأن سفاري على الآيفون كان يخفيها */
+.mark .dot { animation: drop .55s var(--ease) both; }
 .mark .dot-1 { animation-delay: .55s; }
 .mark .dot-2 { animation-delay: .7s; }
 .mark .dot-3 { animation-delay: .85s; }
